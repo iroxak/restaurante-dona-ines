@@ -18,7 +18,7 @@ interface UserData {
 export default function Home() {
   const [view, setView] = useState<View>('landing')
   const [user, setUser] = useState<UserData | null>(null)
-  const [mounted, setMounted] = useState(false)
+  const [authChecked, setAuthChecked] = useState(false)
 
   const checkAuth = useCallback(async () => {
     try {
@@ -30,7 +30,7 @@ export default function Home() {
     } catch {
       // not authenticated
     } finally {
-      setMounted(true)
+      setAuthChecked(true)
     }
   }, [])
 
@@ -40,14 +40,14 @@ export default function Home() {
 
   // Guard: redirect to login if accessing protected views without auth
   useEffect(() => {
-    if (!mounted) return
+    if (!authChecked) return
     if ((view === 'cotizador' || view === 'admin') && !user) {
       setView('login')
     }
     if (view === 'admin' && user && user.role !== 'admin') {
       setView('cotizador')
     }
-  }, [view, user, mounted])
+  }, [view, user, authChecked])
 
   const handleLogin = (userData: UserData) => {
     setUser(userData)
@@ -75,7 +75,18 @@ export default function Home() {
   const handleGoCotizador = () => setView('cotizador')
   const handleGoLanding = () => setView('landing')
 
-  if (!mounted) {
+  // Landing page renders immediately (server-side), no loading gate
+  if (view === 'landing') {
+    return (
+      <>
+        <LandingPage onGoLogin={handleGoLogin} />
+        <WhatsAppButton />
+      </>
+    )
+  }
+
+  // Auth-gated views: wait for auth check before rendering
+  if (!authChecked) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-dona-cream">
         <div className="animate-pulse text-dona-gold text-lg">Cargando...</div>
@@ -85,12 +96,6 @@ export default function Home() {
 
   return (
     <>
-      {view === 'landing' && (
-        <>
-          <LandingPage onGoLogin={handleGoLogin} />
-          <WhatsAppButton />
-        </>
-      )}
       {view === 'login' && (
         <LoginPage
           onLogin={handleLogin}
