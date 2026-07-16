@@ -41,51 +41,52 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  /* Restaurant custom colors - rustic/warm palette */
-  --color-dona-dark: #2D1B0E;
-  --color-dona-gold: #A07830;
-  --color-dona-gold-light: #C49A3C;
-  --color-dona-cream: #FDF6EC;
-  --color-dona-warm: #F5EDE0;
-  --color-dona-brown: #8B5E3C;
-  --color-dona-terra: #B8652A;
-  --color-dona-green: #4A6741;
-  --color-dona-client-bg: #F0E4D0;
+  /* Elegant restaurant palette */
+  --color-dona-dark: #121212;
+  --color-dona-gold: #C8A951;
+  --color-dona-gold-light: #D4B96A;
+  --color-dona-cream: #FBF8F3;
+  --color-dona-warm: #F3EDE4;
+  --color-dona-brown: #722F37;
+  --color-dona-terra: #8B5E3C;
+  --color-dona-green: #2D6A4F;
+  --color-dona-client-bg: #F0EBE3;
+  --color-dona-wine: #722F37;
 }
 
 :root {
   --radius: 0.5rem;
-  --background: #FDF6EC;
-  --foreground: #2D1B0E;
-  --card: #FFFCF7;
-  --card-foreground: #2D1B0E;
-  --popover: #FFFCF7;
-  --popover-foreground: #2D1B0E;
-  --primary: #8B5E3C;
-  --primary-foreground: #FDF6EC;
-  --secondary: #F5EDE0;
-  --secondary-foreground: #2D1B0E;
-  --muted: #F5EDE0;
-  --muted-foreground: #7A6B5D;
-  --accent: #A07830;
+  --background: #FBF8F3;
+  --foreground: #1A1A1A;
+  --card: #FFFFFF;
+  --card-foreground: #1A1A1A;
+  --popover: #FFFFFF;
+  --popover-foreground: #1A1A1A;
+  --primary: #C8A951;
+  --primary-foreground: #121212;
+  --secondary: #F3EDE4;
+  --secondary-foreground: #1A1A1A;
+  --muted: #F3EDE4;
+  --muted-foreground: #6B6B6B;
+  --accent: #722F37;
   --accent-foreground: #FFFFFF;
   --destructive: #B8402A;
-  --border: #E0D5C5;
-  --input: #E0D5C5;
-  --ring: #A07830;
-  --chart-1: #A07830;
-  --chart-2: #4A6741;
-  --chart-3: #B8652A;
-  --chart-4: #2D1B0E;
-  --chart-5: #7A6B5D;
-  --sidebar: #2D1B0E;
-  --sidebar-foreground: #FDF6EC;
-  --sidebar-primary: #A07830;
-  --sidebar-primary-foreground: #FDF6EC;
-  --sidebar-accent: #3D2A1A;
-  --sidebar-accent-foreground: #FDF6EC;
-  --sidebar-border: #4A3728;
-  --sidebar-ring: #A07830;
+  --border: #E5DDD3;
+  --input: #E5DDD3;
+  --ring: #C8A951;
+  --chart-1: #C8A951;
+  --chart-2: #722F37;
+  --chart-3: #2D6A4F;
+  --chart-4: #121212;
+  --chart-5: #8B5E3C;
+  --sidebar: #121212;
+  --sidebar-foreground: #FBF8F3;
+  --sidebar-primary: #C8A951;
+  --sidebar-primary-foreground: #121212;
+  --sidebar-accent: #1E1E1E;
+  --sidebar-accent-foreground: #FBF8F3;
+  --sidebar-border: #2A2A2A;
+  --sidebar-ring: #C8A951;
 }
 
 @layer base {
@@ -100,27 +101,38 @@
   }
 }
 
-/* Heading font */
+/* Elegant heading font - Cormorant Garamond */
 .font-heading {
-  font-family: var(--font-serif), Georgia, 'Times New Roman', serif;
+  font-family: var(--font-serif), 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  letter-spacing: 0.02em;
 }
 
-/* Body font */
+/* Clean body font - Inter */
 .font-body {
-  font-family: var(--font-body), 'Lora', Georgia, serif;
+  font-family: var(--font-body), 'Inter', system-ui, -apple-system, sans-serif;
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar - elegant thin gold */
 .custom-scrollbar::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
 }
 .custom-scrollbar::-webkit-scrollbar-track {
   background: transparent;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #A0783040;
-  border-radius: 3px;
+  background: rgba(200, 169, 81, 0.3);
+  border-radius: 10px;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #A0783080;
+  background: rgba(200, 169, 81, 0.5);
+}
+
+/* Elegant text shadow for hero */
+.text-glow-gold {
+  text-shadow: 0 0 40px rgba(200, 169, 81, 0.15);
+}
+
+/* Subtle gold border glow */
+.border-glow {
+  box-shadow: 0 0 0 1px rgba(200, 169, 81, 0.2), 0 4px 20px rgba(200, 169, 81, 0.08);
 }
