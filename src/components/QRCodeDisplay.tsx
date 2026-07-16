@@ -62,7 +62,7 @@ export default function QRCodeDisplay({
         style={{
           width: logoSize + 12,
           height: logoSize + 12,
-          background: bgColor,
+          background: '#FFFFFF',
           border: '2.5px solid #C9962B',
           boxShadow: '0 1px 4px rgba(0,0,0,0.2)',
         }}
