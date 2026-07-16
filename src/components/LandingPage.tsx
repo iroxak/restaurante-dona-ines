@@ -97,7 +97,7 @@ export default function LandingPage({ onGoLogin }: LandingPageProps) {
       </header>
 
       {/* ── Hero ── */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-screen flex items-center justify-center">
         <img
           src="/foto1.jpg"
           alt=""
@@ -108,16 +108,16 @@ export default function LandingPage({ onGoLogin }: LandingPageProps) {
         {/* Subtle gold accent line */}
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-dona-gold/40 to-transparent" />
 
-        <div className="relative z-10 text-center px-4 flex flex-col items-center gap-4">
-          <LogoWrapper size={260} />
+        <div className="relative z-10 text-center px-4 flex flex-col items-center gap-3 pt-16 pb-8">
+          <LogoWrapper size={220} />
           <div className="mt-2">
             <p className="font-body text-dona-gold/70 text-xs sm:text-sm uppercase tracking-[0.35em] mb-3 font-light">
               Bienvenidos a
             </p>
-            <h1 className="font-heading text-6xl sm:text-7xl md:text-9xl font-bold text-white tracking-wide text-glow-gold leading-[0.9]">
+            <h1 className="font-heading text-5xl sm:text-6xl md:text-8xl font-bold text-white tracking-wide text-glow-gold leading-[0.95]">
               Restaurante
             </h1>
-            <h1 className="font-heading text-6xl sm:text-7xl md:text-9xl font-bold text-dona-gold text-glow-gold leading-[0.9] mt-1">
+            <h1 className="font-heading text-5xl sm:text-6xl md:text-8xl font-bold text-dona-gold text-glow-gold leading-[0.95]">
               Doña Inés
             </h1>
           </div>
@@ -184,12 +184,15 @@ export default function LandingPage({ onGoLogin }: LandingPageProps) {
             </h2>
             <div className="w-12 h-px bg-dona-gold/50 mx-auto mt-6" />
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
             <div className="rounded-sm overflow-hidden aspect-[4/3] transition-all duration-500 hover:scale-[1.02] shadow-lg group">
               <img src="/foto1.jpg" alt="Restaurante Doña Inés - exterior" className="w-full h-full object-cover group-hover:brightness-110 transition-all duration-500" loading="lazy" />
             </div>
             <div className="rounded-sm overflow-hidden aspect-[4/3] transition-all duration-500 hover:scale-[1.02] shadow-lg group">
               <img src="/foto2.jpg" alt="Restaurante Doña Inés - interior" className="w-full h-full object-cover group-hover:brightness-110 transition-all duration-500" loading="lazy" />
+            </div>
+            <div className="rounded-sm overflow-hidden aspect-[4/3] transition-all duration-500 hover:scale-[1.02] shadow-lg group">
+              <img src="/foto3.jpg" alt="Restaurante Doña Inés - ambiente" className="w-full h-full object-cover group-hover:brightness-110 transition-all duration-500" loading="lazy" />
             </div>
           </div>
         </div>
