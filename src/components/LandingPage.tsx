@@ -93,9 +93,11 @@ export default function LandingPage({ onGoLogin }: LandingPageProps) {
       {/* Hero */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         {/* Static background image */}
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: 'url(/foto1.jpg)' }}
+        <img
+          src="/foto1.jpg"
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover"
+          aria-hidden="true"
         />
         <div className="absolute inset-0 bg-black/60" />
         <div className="relative z-10 text-center px-4 flex flex-col items-center gap-6">

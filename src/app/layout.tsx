@@ -48,14 +48,6 @@ export default function RootLayout({
   return (
     <html lang="es" suppressHydrationWarning>
       <head>
-        {/* Preload hero image to prevent flicker */}
-        <link
-          rel="preload"
-          as="image"
-          href="/foto1.jpg"
-          type="image/jpeg"
-        />
-        {/* Preload logo */}
         <link
           rel="preload"
           as="image"
