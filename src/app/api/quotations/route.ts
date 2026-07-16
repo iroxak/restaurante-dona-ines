@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "@/lib/db";
+import { db, ensureSeeded } from "@/lib/db";
 import { getIronSession } from "iron-session";
 import { sessionOptions, SessionData } from "@/lib/session";
 import { cookies } from "next/headers";
@@ -14,6 +14,7 @@ function generateFolio(dateStr: string): string {
 
 export async function GET() {
   try {
+    await ensureSeeded();
     const cookieStore = await cookies();
     const session = await getIronSession<SessionData>(cookieStore, sessionOptions);
 
@@ -37,6 +38,7 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
+    await ensureSeeded();
     const cookieStore = await cookies();
     const session = await getIronSession<SessionData>(cookieStore, sessionOptions);
 

@@ -1,12 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
-import { db } from "@/lib/db";
+import { db, ensureSeeded } from "@/lib/db";
 import { getIronSession } from "iron-session";
 import { sessionOptions, SessionData } from "@/lib/session";
 import { cookies } from "next/headers";
 
 export async function POST(request: NextRequest) {
   try {
+    await ensureSeeded();
     const { username, password } = await request.json();
 
     if (!username || !password) {

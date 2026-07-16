@@ -194,6 +194,15 @@ export default function LandingPage({ onGoLogin }: LandingPageProps) {
             <div className="rounded-sm overflow-hidden aspect-[4/3] transition-all duration-500 hover:scale-[1.02] shadow-lg group">
               <img src="/foto3.jpg" alt="Restaurante Doña Inés - ambiente" className="w-full h-full object-cover group-hover:brightness-110 transition-all duration-500" loading="lazy" />
             </div>
+            <div className="rounded-sm overflow-hidden aspect-[4/3] transition-all duration-500 hover:scale-[1.02] shadow-lg group">
+              <img src="/foto5.jpg" alt="Restaurante Doña Inés - platos caseros" className="w-full h-full object-cover group-hover:brightness-110 transition-all duration-500" loading="lazy" />
+            </div>
+            <div className="rounded-sm overflow-hidden aspect-[4/3] transition-all duration-500 hover:scale-[1.02] shadow-lg group">
+              <img src="/foto6.jpg" alt="Restaurante Doña Inés - letrero" className="w-full h-full object-cover group-hover:brightness-110 transition-all duration-500" loading="lazy" />
+            </div>
+            <div className="rounded-sm overflow-hidden aspect-[4/3] transition-all duration-500 hover:scale-[1.02] shadow-lg group">
+              <img src="/foto7.jpg" alt="Restaurante Doña Inés - nuestra comida" className="w-full h-full object-cover group-hover:brightness-110 transition-all duration-500" loading="lazy" />
+            </div>
           </div>
         </div>
       </section>
