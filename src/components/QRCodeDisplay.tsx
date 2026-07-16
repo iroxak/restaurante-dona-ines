@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import QRCode from 'qrcode'
 
 interface QRCodeDisplayProps {
@@ -22,86 +22,57 @@ export default function QRCodeDisplay({
   bgColor = '#FAF7F2',
   className = '',
 }: QRCodeDisplayProps) {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
-  const [ready, setReady] = useState(false)
+  const [qrSrc, setQrSrc] = useState('')
 
   useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-
-    const scale = 2 // retina
-    const padding = 16
-    const totalSize = size * scale
-
-    QRCode.toCanvas(canvas, url, {
-      width: totalSize,
-      margin: padding / scale,
+    QRCode.toDataURL(url, {
+      width: size * 2,
+      margin: 2,
       color: {
         dark: fgColor,
         light: bgColor,
       },
       errorCorrectionLevel: 'H',
-    }).then(() => {
-      const ctx = canvas.getContext('2d')
-      if (!ctx) return
+    }).then(setQrSrc)
+  }, [url, size, fgColor, bgColor])
 
-      // Load logo and draw centered
-      const img = new window.Image()
-      img.crossOrigin = 'anonymous'
-      img.onload = () => {
-        const ls = logoSize * scale
-        const x = (totalSize - ls) / 2
-        const y = (totalSize - ls) / 2
-        const r = ls * 0.18 // border radius for logo bg
-
-        // White rounded background behind logo
-        const bgPad = 6 * scale
-        ctx.save()
-        ctx.beginPath()
-        ctx.roundRect(x - bgPad, y - bgPad, ls + bgPad * 2, ls + bgPad * 2, r + bgPad)
-        ctx.fillStyle = bgColor
-        ctx.fill()
-
-        // Gold border ring
-        ctx.beginPath()
-        ctx.roundRect(x - 3 * scale, y - 3 * scale, ls + 6 * scale, ls + 6 * scale, r + 3 * scale)
-        ctx.strokeStyle = '#C9962B'
-        ctx.lineWidth = 2.5 * scale
-        ctx.stroke()
-        ctx.restore()
-
-        // Draw logo with rounded clip
-        ctx.save()
-        ctx.beginPath()
-        ctx.roundRect(x, y, ls, ls, r)
-        ctx.clip()
-        ctx.drawImage(img, x, y, ls, ls)
-        ctx.restore()
-
-        setReady(true)
-      }
-      img.src = logoSrc
-    })
-  }, [url, size, logoSrc, logoSize, fgColor, bgColor])
+  if (!qrSrc) return null
 
   return (
     <div
-      className={`relative inline-flex flex-col items-center gap-3 ${className}`}
-      style={{ opacity: ready ? 1 : 0, transition: 'opacity 0.4s ease' }}
+      className={`relative inline-flex items-center justify-center ${className}`}
+      style={{ width: size, height: size }}
     >
       <div
-        className="rounded-2xl overflow-hidden shadow-lg"
+        className="absolute inset-0 rounded-2xl overflow-hidden"
+        style={{ border: '3px solid #C9962B' }}
+      >
+        <img
+          src={qrSrc}
+          alt="Código QR"
+          width={size}
+          height={size}
+          className="w-full h-full"
+          style={{ display: 'block' }}
+        />
+      </div>
+      {/* Logo overlay centered */}
+      <div
+        className="absolute rounded-full flex items-center justify-center"
         style={{
-          width: size,
-          height: size,
-          padding: 0,
-          border: '3px solid #C9962B',
+          width: logoSize + 12,
+          height: logoSize + 12,
           background: bgColor,
+          border: '2.5px solid #C9962B',
+          boxShadow: '0 1px 4px rgba(0,0,0,0.2)',
         }}
       >
-        <canvas
-          ref={canvasRef}
-          style={{ width: size, height: size, display: 'block' }}
+        <img
+          src={logoSrc}
+          alt="Doña Inés"
+          width={logoSize}
+          height={logoSize}
+          className="rounded-full object-contain p-0.5"
         />
       </div>
     </div>
