@@ -1,3 +1,4 @@
+// db.ts v2 — auto-create tables on ephemeral SQLite (Vercel /tmp/)
 import { PrismaClient } from '@prisma/client'
 import bcrypt from 'bcryptjs'
 
