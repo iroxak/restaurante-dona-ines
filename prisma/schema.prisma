@@ -1,0 +1,47 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  username  String   @unique
+  password  String
+  role      String   @default("user") // "admin" | "user"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  quotations Quotation[]
+}
+
+model Quotation {
+  id        String   @id @default(cuid())
+  folio     String
+  date      String
+  client    String   // JSON: { company, contact, email, phone, location }
+  status    String   @default("pendiente") // pendiente | enviada | aceptada | rechazada
+  notes     String   @default("")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  createdById String
+  createdBy   User   @relation(fields: [createdById], references: [id])
+
+  items QuotationItem[]
+}
+
+model QuotationItem {
+  id          String   @id @default(cuid())
+  description String
+  qty         Int
+  price       Int      // precio neto en CLP (entero)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+
+  quotationId String
+  quotation   Quotation @relation(fields: [quotationId], references: [id], onDelete: Cascade)
+}
