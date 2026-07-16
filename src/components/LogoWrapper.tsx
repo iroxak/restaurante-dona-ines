@@ -30,10 +30,10 @@ export default function LogoWrapper({
     <div
       className={`relative rounded-full flex items-center justify-center shrink-0 ${className}`}
       style={{
-        width: size + 8,
-        height: size + 8,
-        background: 'radial-gradient(circle, #FFFFFF 0%, #FAF7F2 100%)',
-        boxShadow: '0 0 0 2px rgba(201, 150, 43, 0.6), 0 2px 8px rgba(0,0,0,0.3)',
+        width: size + 10,
+        height: size + 10,
+        background: 'radial-gradient(circle, #FFFCF7 0%, #FDF6EC 100%)',
+        boxShadow: '0 0 0 2.5px rgba(160, 120, 48, 0.7), 0 3px 12px rgba(0,0,0,0.35)',
       }}
     >
       <img

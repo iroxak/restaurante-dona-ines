@@ -1,22 +1,24 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Playfair_Display, Lora } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const playfair = Playfair_Display({
+  variable: "--font-serif",
   subsets: ["latin"],
+  weight: ["400", "600", "700", "800"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const lora = Lora({
+  variable: "--font-body",
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
 });
 
 export const metadata: Metadata = {
   title: "Restaurante Doña Inés | Comida Casera y Colaciones Empresariales",
   description:
-    "Restaurante Doña Inés en El Melón, Nogales. Comida casera chilena, colaciones empresariales, desayunos, almuerzos, cenas y catering para eventos especiales. Bar y servicios residenciales.",
+    "Restaurante Doña Inés en El Melón, Nogales. Comida casera chilena, colaciones empresariales, desayunos, almuerzos, cenas y catering para eventos especiales.",
   keywords: [
     "restaurante",
     "comida casera",
@@ -56,7 +58,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
+        className={`${playfair.variable} ${lora.variable} antialiased bg-background text-foreground`}
       >
         {children}
         <Toaster />
