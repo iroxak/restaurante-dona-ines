@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import LogoWrapper from '@/components/LogoWrapper'
+import QRCodeDisplay from '@/components/QRCodeDisplay'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
@@ -474,19 +475,31 @@ export default function LandingPage({ onGoLogin }: LandingPageProps) {
       </section>
 
       {/* Footer */}
-      <footer className="bg-dona-black text-white py-10 px-4">
-        <div className="max-w-5xl mx-auto text-center space-y-3">
+      <footer className="bg-dona-black text-white py-12 px-4">
+        <div className="max-w-5xl mx-auto flex flex-col items-center gap-6">
           <p className="text-dona-gold font-semibold text-lg">
             © 2026 Restaurante Doña Inés
           </p>
-          <p className="text-gray-400 text-sm">
-            Los Pinos 2202, Macal 2, El Melón, Nogales, Valparaíso
+          <QRCodeDisplay
+            url="https://restaurante-dona-ines.vercel.app"
+            size={160}
+            logoSize={40}
+            fgColor="#C9962B"
+            bgColor="#1A1A1A"
+          />
+          <p className="text-gray-400 text-sm text-center">
+            Escanea para visitarnos
           </p>
-          <p className="text-gray-400 text-sm">
-            <Link href="tel:+56921787611" className="hover:text-dona-gold transition-colors">
-              +56 9 2178 7611
-            </Link>
-          </p>
+          <div className="text-center space-y-1">
+            <p className="text-gray-400 text-sm">
+              Los Pinos 2202, Macal 2, El Melón, Nogales, Valparaíso
+            </p>
+            <p className="text-gray-400 text-sm">
+              <Link href="tel:+56921787611" className="hover:text-dona-gold transition-colors">
+                +56 9 2178 7611
+              </Link>
+            </p>
+          </div>
         </div>
       </footer>
     </div>
