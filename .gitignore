@@ -1,2 +1,42 @@
-skills/
-node_modules/
+# dependencies
+node_modules
+/.pnp
+.pnp.*
+
+# next.js
+.next/
+/out/
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+*.log
+
+# env files
+.env*
+!.env.example
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# Database
+db/
+
+# Project-specific
+.claude
+.z-ai-config
+.zscripts/
+upload/
+download/
+tool-results/
+test
+scripts/
+
+# LFS
+*.sst
