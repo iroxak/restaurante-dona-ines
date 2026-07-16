@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import Image from 'next/image'
 import Link from 'next/link'
 import LogoWrapper from '@/components/LogoWrapper'
 import { Button } from '@/components/ui/button'
@@ -93,17 +92,10 @@ export default function LandingPage({ onGoLogin }: LandingPageProps) {
 
       {/* Hero */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Solid color fallback - prevents flicker */}
-        <div className="absolute inset-0 bg-[#2a1f14]" />
-        {/* Background image via Next.js Image - no flicker */}
-        <Image
-          src="/foto1.jpg"
-          alt="Restaurante Doña Inés"
-          fill
-          className="object-cover"
-          sizes="100vw"
-          priority
-          quality={85}
+        {/* Static background image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: 'url(/foto1.jpg)' }}
         />
         <div className="absolute inset-0 bg-black/60" />
         <div className="relative z-10 text-center px-4 flex flex-col items-center gap-6">
@@ -168,25 +160,18 @@ export default function LandingPage({ onGoLogin }: LandingPageProps) {
             Nuestro Local
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {[
-              { src: '/foto1.jpg', alt: 'Restaurante exterior' },
-              { src: '/foto2.jpg', alt: 'Interior del restaurante' },
-              { src: '/foto3.jpg', alt: 'Comida casera' },
-              { src: '/foto4.jpg', alt: 'Ambiente del restaurante' },
-            ].map((photo) => (
-              <div
-                key={photo.src}
-                className="rounded-xl overflow-hidden aspect-[4/3] transition-transform duration-300 hover:scale-105"
-              >
-                <Image
-                  src={photo.src}
-                  alt={photo.alt}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                />
-              </div>
-            ))}
+            <div className="rounded-xl overflow-hidden aspect-[4/3] transition-transform duration-300 hover:scale-105">
+              <img src="/foto1.jpg" alt="Restaurante exterior" className="w-full h-full object-cover" loading="lazy" />
+            </div>
+            <div className="rounded-xl overflow-hidden aspect-[4/3] transition-transform duration-300 hover:scale-105">
+              <img src="/foto2.jpg" alt="Interior del restaurante" className="w-full h-full object-cover" loading="lazy" />
+            </div>
+            <div className="rounded-xl overflow-hidden aspect-[4/3] transition-transform duration-300 hover:scale-105">
+              <img src="/foto3.jpg" alt="Comida casera" className="w-full h-full object-cover" loading="lazy" />
+            </div>
+            <div className="rounded-xl overflow-hidden aspect-[4/3] transition-transform duration-300 hover:scale-105">
+              <img src="/foto4.jpg" alt="Ambiente del restaurante" className="w-full h-full object-cover" loading="lazy" />
+            </div>
           </div>
         </div>
       </section>

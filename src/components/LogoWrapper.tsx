@@ -1,7 +1,5 @@
 'use client'
 
-import Image from 'next/image'
-
 interface LogoWrapperProps {
   size?: number
   className?: string
@@ -18,7 +16,7 @@ export default function LogoWrapper({
 }: LogoWrapperProps) {
   if (variant === 'none') {
     return (
-      <Image
+      <img
         src="/logo.png"
         alt={alt}
         width={size}
@@ -38,7 +36,7 @@ export default function LogoWrapper({
         boxShadow: '0 0 0 2px rgba(201, 150, 43, 0.6), 0 2px 8px rgba(0,0,0,0.3)',
       }}
     >
-      <Image
+      <img
         src="/logo.png"
         alt={alt}
         width={size}
