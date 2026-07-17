@@ -1,8 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db, ensureSeeded } from "@/lib/db";
 import { getIronSession } from "iron-session";
 import { sessionOptions, SessionData } from "@/lib/session";
 import { cookies } from "next/headers";
+
+async function getDb() {
+  const { db, ensureSeeded } = await import("@/lib/db");
+  await ensureSeeded();
+  return db;
+}
 
 function generateFolio(dateStr: string): string {
   const d = new Date(dateStr + "T12:00:00");
@@ -14,22 +19,15 @@ function generateFolio(dateStr: string): string {
 
 export async function GET() {
   try {
-    await ensureSeeded();
     const cookieStore = await cookies();
     const session = await getIronSession<SessionData>(cookieStore, sessionOptions);
+    if (!session.isLoggedIn) return NextResponse.json({ error: "No autenticado" }, { status: 401 });
 
-    if (!session.isLoggedIn) {
-      return NextResponse.json({ error: "No autenticado" }, { status: 401 });
-    }
-
+    const db = await getDb();
     const quotations = await db.quotation.findMany({
-      include: {
-        createdBy: { select: { username: true } },
-        items: { orderBy: { order: "asc" } },
-      },
+      include: { createdBy: { select: { username: true } }, items: { orderBy: { order: "asc" } } },
       orderBy: { createdAt: "desc" },
     });
-
     return NextResponse.json(quotations);
   } catch {
     return NextResponse.json({ error: "Error interno" }, { status: 500 });
@@ -38,57 +36,29 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
-    await ensureSeeded();
     const cookieStore = await cookies();
     const session = await getIronSession<SessionData>(cookieStore, sessionOptions);
-
-    if (!session.isLoggedIn) {
-      return NextResponse.json({ error: "No autenticado" }, { status: 401 });
-    }
+    if (!session.isLoggedIn) return NextResponse.json({ error: "No autenticado" }, { status: 401 });
 
     const body = await request.json();
     const { date, client, items, notes } = body;
-
     if (!date || !items || items.length === 0) {
-      return NextResponse.json(
-        { error: "Fecha e items son requeridos" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Fecha e items son requeridos" }, { status: 400 });
     }
 
+    const db = await getDb();
     const folio = generateFolio(date);
-
-    // Check if folio already exists and append a suffix
-    const existing = await db.quotation.findMany({
-      where: { folio: { startsWith: folio } },
-      select: { folio: true },
-    });
-
+    const existing = await db.quotation.findMany({ where: { folio: { startsWith: folio } }, select: { folio: true } });
     const finalFolio = existing.length > 0 ? `${folio}-${existing.length + 1}` : folio;
 
     const quotation = await db.quotation.create({
       data: {
-        folio: finalFolio,
-        date,
-        client: JSON.stringify(client || {}),
-        status: "pendiente",
-        notes: notes || "",
+        folio: finalFolio, date, client: JSON.stringify(client || {}), status: "pendiente", notes: notes || "",
         createdById: session.userId,
-        items: {
-          create: items.map((item: { description: string; qty: number; price: number }, index: number) => ({
-            description: item.description,
-            qty: item.qty,
-            price: Math.round(item.price),
-            order: index,
-          })),
-        },
+        items: { create: items.map((item: { description: string; qty: number; price: number }, index: number) => ({ description: item.description, qty: item.qty, price: Math.round(item.price), order: index })) },
       },
-      include: {
-        createdBy: { select: { username: true } },
-        items: { orderBy: { order: "asc" } },
-      },
+      include: { createdBy: { select: { username: true } }, items: { orderBy: { order: "asc" } } },
     });
-
     return NextResponse.json(quotation, { status: 201 });
   } catch {
     return NextResponse.json({ error: "Error interno" }, { status: 500 });
